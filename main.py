@@ -28,7 +28,23 @@ def line_kb():
 @bot.message_handler(content_types=['text'])
 def greeting(message):
     r_mess = message.text.lower()
+    """connect DB and create the table"""
+    connect = sqlite3.connect('users.db')
+    cursor = connect.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS login_id(
+                            id INTEGER
+                        )''')
+    connect.commit()
 
+    people_id = message.chat.id
+    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id}")
+    data = cursor.fetchone()
+    if data is None:
+        user_id = [message.chat.id]
+        cursor.execute("INSERT INTO login_id VALUES(?);", user_id)
+        connect.commit()
+
+    """answers after greeting phrase"""
     if r_mess in phrase.greeting_phrase:
         b_answ = phrase.greeting_answ
         bot.send_message(message.chat.id, b_answ, reply_markup=main_kb())
@@ -47,6 +63,11 @@ def greeting(message):
     elif r_mess in phrase.expletives or phrase.expletives_str.find(r_mess[:3]) != -1:
         b_ans = random.choice(phrase.exp_answ)
         bot.send_message(message.chat.id, b_ans)
+    elif r_mess == '/delete':
+        """delete id from table"""
+        cursor.execute(f"DELETE FROM login_id WHERE id = {people_id}")
+        connect.commit()
+        bot.send_message(message.chat.id, 'Данные успешно удалены.')
     else:
         b_ans = 'Я тебя не понял. :( Просто напиши /start или /menu'
         bot.send_message(message.chat.id, b_ans)
