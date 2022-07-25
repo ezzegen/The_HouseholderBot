@@ -25,29 +25,60 @@ def line_kb():
     return keyboard
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(commands=['start'])
 def greeting(message):
-    r_mess = message.text.lower()
     """connect DB and create the table"""
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
     cursor.execute('''CREATE TABLE IF NOT EXISTS login_id(
-                            id INTEGER
-                        )''')
+                                id INTEGER
+                            )''')
     connect.commit()
 
     people_id = message.chat.id
-    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id}")
+    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id};")
     data = cursor.fetchone()
     if data is None:
         user_id = [message.chat.id]
         cursor.execute("INSERT INTO login_id VALUES(?);", user_id)
         connect.commit()
-
     """answers after greeting phrase"""
+    bot.send_message(message.chat.id, phrase.greeting_answ, reply_markup=main_kb())
+
+
+@bot.message_handler(commands=['sendall'])
+def send_all(message):
+    connect = sqlite3.connect('users.db')
+    cursor = connect.cursor()
+    users_id = []
+    cursor.execute('SELECT * FROM login_id;')
+    new_data = cursor.fetchall()
+    connect.commit()
+    for i in new_data:
+        i = i[0]
+        users_id.append(i)
+    print(users_id)
+    for user in users_id:
+        bot.send_message(user, 'тест')
+
+
+@bot.message_handler(commands=['delete'])
+def delete(message):
+    connect = sqlite3.connect('users.db')
+    cursor = connect.cursor()
+    people_id = message.chat.id
+    """delete id from table"""
+    cursor.execute(f"DELETE FROM login_id WHERE id = {people_id}")
+    connect.commit()
+    bot.send_message(message.chat.id, 'Данные успешно удалены.')
+
+
+@bot.message_handler(content_types=['text'])
+def joke(message):
+    r_mess = message.text.lower()
     if r_mess in phrase.greeting_phrase:
-        b_answ = phrase.greeting_answ
-        bot.send_message(message.chat.id, b_answ, reply_markup=main_kb())
+        b_ans = phrase.greeting_answ
+        bot.send_message(message.chat.id, b_ans, reply_markup=main_kb())
     elif r_mess == 'ghbdtn':
         b_ans = 'Привет, привет. Поменяй раскладку! :D или нажми /start'
         bot.send_message(message.chat.id, b_ans)
@@ -63,11 +94,7 @@ def greeting(message):
     elif r_mess in phrase.expletives or phrase.expletives_str.find(r_mess[:3]) != -1:
         b_ans = random.choice(phrase.exp_answ)
         bot.send_message(message.chat.id, b_ans)
-    elif r_mess == '/delete':
-        """delete id from table"""
-        cursor.execute(f"DELETE FROM login_id WHERE id = {people_id}")
-        connect.commit()
-        bot.send_message(message.chat.id, 'Данные успешно удалены.')
+
     else:
         b_ans = 'Я тебя не понял. :( Просто напиши /start или /menu'
         bot.send_message(message.chat.id, b_ans)
