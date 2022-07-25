@@ -30,8 +30,8 @@ def greeting(message):
     """connect DB and create the table"""
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS login_id(
-                                id INTEGER
+    cursor.execute('''CREATE TABLE IF NOT EXISTS login_id( 
+                             id INT
                             )''')
     connect.commit()
 
@@ -57,9 +57,10 @@ def send_all(message):
     for i in new_data:
         i = i[0]
         users_id.append(i)
-    print(users_id)
     for user in users_id:
         bot.send_message(user, 'тест')
+    """number of users"""
+    bot.send_message(message.chat.id, f'Количество пользователей бота: {len(users_id)}.')
 
 
 @bot.message_handler(commands=['delete'])
