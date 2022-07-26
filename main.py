@@ -48,6 +48,7 @@ def greeting(message):
 
 @bot.message_handler(commands=['sendall'])
 def send_all(message):
+    """sending mess to users """
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
     users_id = []
@@ -75,27 +76,18 @@ def delete(message):
 
 
 @bot.message_handler(content_types=['text'])
-def joke(message):
+def talk(message):
+    """talking with a bot"""
     r_mess = message.text.lower()
-    if r_mess in phrase.greeting_phrase:
-        b_ans = phrase.greeting_answ
-        bot.send_message(message.chat.id, b_ans, reply_markup=main_kb())
-    elif r_mess == 'ghbdtn':
-        b_ans = 'Привет, привет. Поменяй раскладку! :D или нажми /start'
+    if r_mess in phrase.phrase_data:
+        b_ans = phrase.phrase_data[r_mess]
         bot.send_message(message.chat.id, b_ans)
     elif r_mess in phrase.menu_ph:
         b_answ = 'Вот и меню.)) Выбирай.'
         bot.send_message(message.chat.id, b_answ, reply_markup=main_kb())
-    elif r_mess in phrase.questions_hru:
-        b_ans = random.choice(phrase.how_r_u)
-        bot.send_message(message.chat.id, b_ans)
-    elif r_mess in phrase.questions_d:
-        b_ans = random.choice(phrase.wat_ru_d)
-        bot.send_message(message.chat.id, b_ans)
-    elif r_mess in phrase.expletives or phrase.expletives_str.find(r_mess[:3]) != -1:
+    elif phrase.exp_str.find(r_mess[:3]) != -1:
         b_ans = random.choice(phrase.exp_answ)
         bot.send_message(message.chat.id, b_ans)
-
     else:
         b_ans = 'Я тебя не понял. :( Просто напиши /start или /menu'
         bot.send_message(message.chat.id, b_ans)
