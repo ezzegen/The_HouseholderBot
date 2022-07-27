@@ -13,7 +13,7 @@ greeting_phrase = [
 greeting_answ = 'Привет, дорогой друг! Меня зовут Кузька и я помощник по дому. Для работы со мной нажми /menu ;)'
 gr_dict = dict.fromkeys(greeting_phrase, greeting_answ)
 gr_dict['ghbdtn'] = 'Привет, привет. Поменяй раскладку! :D или нажми /menu'
-
+gr_dict['я тебя люблю'] = 'Ой-ёй-ёёёй \U0001F60D\nА я тебя ЛЮБЛЮЮЮЮ!!\n\U0001F493'
 
 """How is the bot doing today?"""
 how_r_u = [
