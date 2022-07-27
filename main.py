@@ -5,6 +5,7 @@ import phrase
 import random
 import date
 import weather
+import time
 
 bot = telebot.TeleBot(token)
 
@@ -46,8 +47,8 @@ def greeting(message):
     bot.send_message(message.chat.id, phrase.greeting_answ, reply_markup=main_kb())
 
 
-@bot.message_handler(commands=['sendall'])
-def send_all(message):
+# @bot.message_handler(commands=['sendall'])
+def send_all():
     """sending mess to users """
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
@@ -58,18 +59,24 @@ def send_all(message):
     for i in new_data:
         i = i[0]
         users_id.append(i)
-    for user in users_id:
-        bot.send_message(user, 'тест')
     """number of users"""
-    bot.send_message(message.chat.id, f'Количество пользователей бота: {len(users_id)}.')
+    bot.send_message(users_id[0], f'Количество зарегистрированных пользователей - {len(users_id)}')
+    """automatic sending of notifications"""
+    while True:
+        for user in users_id:
+            bot.send_message(user, 'тест')
+        time.sleep(10)
+
+
+send_all()
 
 
 @bot.message_handler(commands=['delete'])
 def delete(message):
+    """delete id from table"""
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
     people_id = message.chat.id
-    """delete id from table"""
     cursor.execute(f"DELETE FROM login_id WHERE id = {people_id}")
     connect.commit()
     bot.send_message(message.chat.id, 'Данные успешно удалены.')
@@ -95,27 +102,22 @@ def talk(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def call_back(call):
-    ans = ''
     if call.message:
         if call.data == 'menu':
-            ans = 'Жми на кнопку! :)'
             bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                                  text=ans, reply_markup=line_kb())
+                                  text='Жми на кнопку! :)', reply_markup=line_kb())
         elif call.data == 'help':
-            ans = phrase.b_help
             bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=ans, reply_markup=line_kb())
+                text=phrase.b_help, reply_markup=line_kb())
         elif call.data == 'date':
-            ans = f'Сегодня {date.today}'
             bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=ans)
+                text=f'Сегодня {date.today}')
         elif call.data == 'weather':
-            ans = weather.weather_smr
             bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=ans)
+                text=weather.weather_smr)
 
 
 if __name__ == '__main__':
