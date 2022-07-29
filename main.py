@@ -7,6 +7,7 @@ import date
 import weather
 import time
 from flowers import flower
+import datetime
 
 bot = telebot.TeleBot(token)
 
@@ -32,7 +33,8 @@ def flowers_kb():
     keyboard = telebot.types.InlineKeyboardMarkup()
     button_kal = telebot.types.InlineKeyboardButton(text='Калатея', callback_data='calatea')
     button_kar = telebot.types.InlineKeyboardButton(text='Карисса', callback_data='carissa')
-    keyboard.add(button_kar, button_kal)
+    button_eu = telebot.types.InlineKeyboardButton(text='Эухарис', callback_data='eucharis')
+    keyboard.add(button_kar, button_kal, button_eu)
     return keyboard
 
 
@@ -77,9 +79,6 @@ def send_all():
         time.sleep(10)
 
 
-send_all()
-
-
 @bot.message_handler(commands=['delete'])
 def delete(message):
     """delete id from table"""
@@ -99,8 +98,8 @@ def talk(message):
         b_ans = phrase.phrase_data[r_mess]
         bot.send_message(message.chat.id, b_ans)
     elif r_mess in phrase.menu_ph:
-        b_answ = 'Вот и меню.)) Выбирай.'
-        bot.send_message(message.chat.id, b_answ, reply_markup=main_kb())
+        b_ans = 'Вот и меню.)) Выбирай.'
+        bot.send_message(message.chat.id, b_ans, reply_markup=main_kb())
     elif phrase.exp_str.find(r_mess[:3]) != -1:
         b_ans = random.choice(phrase.exp_answ)
         bot.send_message(message.chat.id, b_ans)
@@ -145,6 +144,13 @@ def call_back(call):
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
                 text=flower[1], parse_mode='HTML'
                                   )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'eucharis':
+            img = open('eucharis.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[2], parse_mode='HTML'
+            )
             bot.send_photo(chat_id=call.message.chat.id, photo=img)
 
 
