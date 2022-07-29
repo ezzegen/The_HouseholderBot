@@ -6,6 +6,7 @@ import random
 import date
 import weather
 import time
+from flowers import flower
 
 bot = telebot.TeleBot(token)
 
@@ -22,7 +23,16 @@ def line_kb():
     button_help = telebot.types.InlineKeyboardButton(text='Помощь', callback_data='help')
     button_date = telebot.types.InlineKeyboardButton(text='Дата', callback_data='date')
     button_weather = telebot.types.InlineKeyboardButton(text='Погода', callback_data='weather')
-    keyboard.add(button_help, button_date, button_weather)
+    button_flowers = telebot.types.InlineKeyboardButton(text='Растения', callback_data='flowers')
+    keyboard.add(button_help, button_date, button_weather, button_flowers)
+    return keyboard
+
+
+def flowers_kb():
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    button_kal = telebot.types.InlineKeyboardButton(text='Калатея', callback_data='calatea')
+    button_kar = telebot.types.InlineKeyboardButton(text='Карисса', callback_data='carissa')
+    keyboard.add(button_kar, button_kal)
     return keyboard
 
 
@@ -47,7 +57,6 @@ def greeting(message):
     bot.send_message(message.chat.id, phrase.greeting_answ, reply_markup=main_kb())
 
 
-# @bot.message_handler(commands=['sendall'])
 def send_all():
     """sending mess to users """
     connect = sqlite3.connect('users.db')
@@ -118,6 +127,25 @@ def call_back(call):
             bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
                 text=weather.weather_smr)
+        elif call.data == 'flowers':
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text='Краткая информация по растениям', reply_markup=flowers_kb()
+            )
+        elif call.data == 'calatea':
+            img = open('medalion.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[0], parse_mode='HTML'
+                                )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'carissa':
+            img = open('karissa.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[1], parse_mode='HTML'
+                                  )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
 
 
 if __name__ == '__main__':
