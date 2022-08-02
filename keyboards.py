@@ -23,7 +23,12 @@ def flowers_kb():
     button_kal = telebot.types.InlineKeyboardButton(text='Калатея', callback_data='calatea')
     button_kar = telebot.types.InlineKeyboardButton(text='Карисса', callback_data='carissa')
     button_eu = telebot.types.InlineKeyboardButton(text='Эухарис', callback_data='eucharis')
-    keyboard.add(button_kar, button_kal, button_eu)
+    button_ch = telebot.types.InlineKeyboardButton(text='Хлорофиттум', callback_data='chlor')
+    button_f = telebot.types.InlineKeyboardButton(text='Фикус', callback_data='ficus')
+    button_cff = telebot.types.InlineKeyboardButton(text='Кофе', callback_data='coffee')
+    button_an = telebot.types.InlineKeyboardButton(text='Антуриум', callback_data='anturium')
+    button_pom = telebot.types.InlineKeyboardButton(text='Гранат', callback_data='pomegranate')
+    keyboard.add(button_kar, button_kal, button_eu, button_ch, button_f, button_cff, button_an, button_pom)
     return keyboard
 
 

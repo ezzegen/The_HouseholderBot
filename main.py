@@ -133,6 +133,41 @@ def call_back(call):
                 text=flower[2], parse_mode='HTML'
             )
             bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'chlor':
+            img = open('images\\chlorofittum.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[3], parse_mode='HTML'
+            )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'ficus':
+            img = open('images\\ficus.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[4], parse_mode='HTML'
+            )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'coffee':
+            img = open('images\\coffee.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[5], parse_mode='HTML'
+            )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'anturium':
+            img = open('images\\anturium.jpg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[6], parse_mode='HTML'
+            )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
+        elif call.data == 'pomegranate':
+            img = open('images\\pomegranate.jpeg', 'rb')
+            bot.edit_message_text(
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=flower[7], parse_mode='HTML'
+            )
+            bot.send_photo(chat_id=call.message.chat.id, photo=img)
 
 
 if __name__ == '__main__':
