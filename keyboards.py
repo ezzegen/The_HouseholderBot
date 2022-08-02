@@ -9,26 +9,30 @@ def main_kb():
 
 
 def line_kb():
+    name_but = ['Помощь', 'Дата', 'Погода', 'Растения']
+    callb = ['help', 'date', 'weather', 'flowers']
     keyboard = telebot.types.InlineKeyboardMarkup()
-    button_help = telebot.types.InlineKeyboardButton(text='Помощь', callback_data='help')
-    button_date = telebot.types.InlineKeyboardButton(text='Дата', callback_data='date')
-    button_weather = telebot.types.InlineKeyboardButton(text='Погода', callback_data='weather')
-    button_flowers = telebot.types.InlineKeyboardButton(text='Растения', callback_data='flowers')
-    keyboard.add(button_help, button_date, button_weather, button_flowers)
+    keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
+                 for i, j in zip(name_but, callb)])
     return keyboard
 
 
 def flowers_kb():
+    flower_callb = [
+        'anturium', 'chlor', 'coffee',
+        'dollar', 'eucharis', 'ficus',
+        'carissa', 'krassula', 'calatea'
+        'myrtle', 'pomegranate', 'spatifillum'
+                    ]
+    flowers_but = [
+        'Антуриум', 'Хлорофиттум', 'Кофе',
+        'Долл.дерево', 'Эухарис', 'Фикус',
+        'Карисса', 'Крассула', 'Калатея',
+        'Мирт', 'Гранат', 'Спатифиллум'
+                    ]
     keyboard = telebot.types.InlineKeyboardMarkup()
-    button_kal = telebot.types.InlineKeyboardButton(text='Калатея', callback_data='calatea')
-    button_kar = telebot.types.InlineKeyboardButton(text='Карисса', callback_data='carissa')
-    button_eu = telebot.types.InlineKeyboardButton(text='Эухарис', callback_data='eucharis')
-    button_ch = telebot.types.InlineKeyboardButton(text='Хлорофиттум', callback_data='chlor')
-    button_f = telebot.types.InlineKeyboardButton(text='Фикус', callback_data='ficus')
-    button_cff = telebot.types.InlineKeyboardButton(text='Кофе', callback_data='coffee')
-    button_an = telebot.types.InlineKeyboardButton(text='Антуриум', callback_data='anturium')
-    button_pom = telebot.types.InlineKeyboardButton(text='Гранат', callback_data='pomegranate')
-    keyboard.add(button_kar, button_kal, button_eu, button_ch, button_f, button_cff, button_an, button_pom)
+    keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
+                   for i, j in zip(flowers_but, flower_callb)])
     return keyboard
 
 
