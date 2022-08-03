@@ -58,3 +58,7 @@ def flowers_content(call):
                 text=flower[index], parse_mode='HTML'
                                 )
             bot.send_photo(chat_id=call.message.chat.id, photo=img)
+    bot.send_message(
+        chat_id=call.message.chat.id,
+        text='Смотрим далее. Для возврата к главному меню кликни /menu.', reply_markup=flowers_kb()
+                )
