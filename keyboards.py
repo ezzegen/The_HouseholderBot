@@ -10,10 +10,10 @@ def main_kb():
 
 def line_kb():
     name_but = ['Помощь', 'Дата', 'Погода', 'Растения']
-    callb = ['help', 'date', 'weather', 'flowers']
+    call_b = ['help', 'date', 'weather', 'flowers']
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
-                 for i, j in zip(name_but, callb)])
+                 for i, j in zip(name_but, call_b)])
     return keyboard
 
 

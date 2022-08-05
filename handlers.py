@@ -22,7 +22,7 @@ def greeting(message):
         user_id = [message.chat.id]
         cursor.execute("INSERT INTO login_id VALUES(?);", user_id)
         connect.commit()
-    """answers after greeting phrase"""
+    # answers after greeting phrase
     bot.send_message(message.chat.id, phrase.gr_dict['/start'], reply_markup=main_kb())
 
 
@@ -41,15 +41,15 @@ def delete(message):
 def menu(message):
     """talking with a bot"""
     r_mess = message.text.lower()
-    if r_mess in phrase.gr_dict:
-        b_answ = phrase.gr_dict[r_mess]
-        bot.send_message(message.chat.id, b_answ, reply_markup=main_kb())
-    elif r_mess in phrase.phrase_data:
-        b_answ = phrase.phrase_data[r_mess]
-        bot.send_message(message.chat.id, b_answ)
-    elif phrase.exp_str.find(r_mess[:3]) != -1:
-        b_answ = random.choice(phrase.exp_answ)
-        bot.send_message(message.chat.id, b_answ)
+    if r_mess in phrase.gr_dict:  # welcome phrases and answers
+        b_answer = phrase.gr_dict[r_mess]
+        bot.send_message(message.chat.id, b_answer, reply_markup=main_kb())
+    elif r_mess in phrase.grand_dictphr:  # for talking with bot
+        b_answer = phrase.grand_dictphr[r_mess]
+        bot.send_message(message.chat.id, b_answer)
+    elif phrase.exp_str.find(r_mess[:3]) != -1:  # checking single-root swear words
+        b_answer = random.choice(phrase.exp_answ)
+        bot.send_message(message.chat.id, b_answer)
     else:
-        b_answ = 'Я тебя не понял. :( Просто напиши /start или /menu'
-        bot.send_message(message.chat.id, b_answ)
+        b_answer = 'Я тебя не понял. :( Просто напиши /start или /menu'
+        bot.send_message(message.chat.id, b_answer)
