@@ -27,5 +27,5 @@ flower = txt_flowers('flowers.txt')
 images = img_flowers('images')
 
 if __name__ == '__main__':
-    txt_flowers('flowers.txt')
-    img_flowers('images')
+    print(txt_flowers('flowers.txt'))
+    print(img_flowers('images'))
