@@ -9,8 +9,8 @@ def main_kb():
 
 
 def line_kb():
-    name_but = ['Помощь', 'Дата', 'Погода', 'Растения']
-    call_b = ['help', 'date', 'weather', 'flowers']
+    name_but = ['Помощь', 'Дата', 'Погода', 'Растения','Рецепты']
+    call_b = ['help', 'date', 'weather', 'flowers', 'recipes']
     keyboard = telebot.types.InlineKeyboardMarkup()
     keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
                  for i, j in zip(name_but, call_b)])
@@ -36,7 +36,16 @@ def flowers_kb():
     return keyboard
 
 
+def recipes_kb():
+    recipe_callb = ['first', 'second', 'dessert', 'drink', 'snacks']
+    recipe_menu = ['Первое', 'Второе', 'Десерты', 'Напитки', 'Закуски']
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
+                   for i, j in zip(recipe_menu, recipe_callb)])
+    return keyboard
+
 if __name__ == '__main__':
     main_kb()
     line_kb()
     flowers_kb()
+    recipes_kb()

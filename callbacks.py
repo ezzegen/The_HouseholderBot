@@ -3,7 +3,7 @@ import phrase
 import date
 import weather
 from flowers import flower, images
-from keyboards import line_kb, flowers_kb
+from keyboards import line_kb, flowers_kb, recipes_kb
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'menu')
@@ -31,6 +31,14 @@ def weather_td(call):
     bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
                 text=weather.weather_smr)
+
+
+@bot.callback_query_handler(func=lambda call: call.data == 'recipes')
+def recipe_menu(call):
+    bot.edit_message_text(
+        chat_id=call.message.chat.id, message_id=call.message.message_id,
+        text='Любимые рецепты', reply_markup=recipes_kb()
+                        )
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'flowers')
