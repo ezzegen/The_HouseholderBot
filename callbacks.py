@@ -41,6 +41,17 @@ def recipe_menu(call):
                         )
 
 
+recipe_callb = ['first', 'second', 'dessert', 'drink', 'snacks']
+
+
+@bot.callback_query_handler(func=lambda call: call.data in recipe_callb)
+def recipes(call):
+    bot.edit_message_text(
+        chat_id=call.message.chat.id, message_id=call.message.message_id,
+        text='рецепт'
+    )
+
+
 @bot.callback_query_handler(func=lambda call: call.data == 'flowers')
 def flowers_menu(call):
     bot.edit_message_text(
@@ -49,14 +60,16 @@ def flowers_menu(call):
             )
 
 
-@bot.callback_query_handler(func=lambda call: True)
-def flowers_content(call):
-    flower_callb = [
+flower_callb = [
         'anturium', 'chlor', 'coffee',
         'dollar', 'eucharis', 'ficus',
         'carissa', 'krassula', 'calatea'
         'myrtle', 'pomegranate', 'spatifillum'
                     ]
+
+
+@bot.callback_query_handler(func=lambda call: call.data in flower_callb)
+def flowers_content(call):
     for i in flower_callb:
         if call.data == i:
             index = flower_callb.index(i)
