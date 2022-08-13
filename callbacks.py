@@ -3,7 +3,8 @@ import phrase
 import date
 import weather
 from flowers import flower, images
-from keyboards import line_kb, flowers_kb, recipes_kb
+from recipes import recipe
+from keyboards import line_kb, flowers_kb, recipes_kb, second_kb
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'menu')
@@ -41,15 +42,33 @@ def recipe_menu(call):
                         )
 
 
-recipe_callb = ['first', 'second', 'dessert', 'drink', 'snacks']
+recipe_callb = ['first', 'dessert', 'drink', 'snacks']
 
 
 @bot.callback_query_handler(func=lambda call: call.data in recipe_callb)
 def recipes(call):
     bot.edit_message_text(
         chat_id=call.message.chat.id, message_id=call.message.message_id,
-        text='рецепт'
+        text=recipe, parse_mode='HTML'
     )
+
+
+@bot.callback_query_handler(func=lambda call: call.data == 'second')
+def recipes(call):
+    bot.edit_message_text(
+        chat_id=call.message.chat.id, message_id=call.message.message_id,
+        text='Чего хочется?', reply_markup=second_kb()
+    )
+
+
+@bot.callback_query_handler(func=lambda call: call.data in recipe)
+def recipes(call):
+    for i in recipe:
+        if call.data == i:
+            bot.edit_message_text(
+            chat_id=call.message.chat.id, message_id=call.message.message_id,
+            text=recipe[i], parse_mode='HTML'
+            )
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'flowers')

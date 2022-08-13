@@ -23,4 +23,4 @@ def weather(url):
 weather_smr = weather('https://world-weather.ru/pogoda/russia/samara/')
 
 if __name__ == 'main':
-    weather('https://world-weather.ru/pogoda/russia/samara/')
+    print(weather_smr)

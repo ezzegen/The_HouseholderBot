@@ -44,6 +44,16 @@ def recipes_kb():
                    for i, j in zip(recipe_menu, recipe_callb)])
     return keyboard
 
+
+def second_kb():
+    second_callb = ['chicken', 'fish', 'meat', 'vegetables']
+    second_mn = ['Курица', 'Рыба', 'Мясо', 'Овощи']
+    keyboard = telebot.types.InlineKeyboardMarkup()
+    keyboard.add(*[telebot.types.InlineKeyboardButton(text=i, callback_data=j)
+                   for i, j in zip(second_mn, second_callb)])
+    return keyboard
+
+
 if __name__ == '__main__':
     main_kb()
     line_kb()
