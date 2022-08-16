@@ -38,7 +38,14 @@ def watering_2(lst):
 def watering_3(lst):
     for user in lst:
         bot.send_message(user, 'Не забудь полить Эухарис, Антуриум!'
-                               ' И проверь, нуждаются ли в поливе Крассула, Долларовое дерево, ))',
+                               ' И проверь, нуждаются ли в поливе Крассула, Долларовое дерево!))',
+                         reply_markup=flowers_kb())
+
+
+def watering_4(lst):
+    for user in lst:
+        bot.send_message(user, 'Не забыла про Долларовое дерево и Крассулу? Полей,'
+                               'если 4 дня назад не поливала!))))',
                          reply_markup=flowers_kb())
 
 
@@ -47,6 +54,7 @@ def notifications(lst):
     schedule.every(4).day.at('15:00').do(watering_1, lst)
     schedule.every(6).day.at('15:00').do(watering_2, lst)
     schedule.every(10).day.at('15:00').do(watering_3, lst)
+    schedule.every(14).day.at('15:00').do(watering_4, lst)
     while True:
         schedule.run_pending()
         time.sleep(1)
