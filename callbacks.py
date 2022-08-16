@@ -66,8 +66,8 @@ def recipes(call):
     for i in recipe:
         if call.data == i:
             bot.edit_message_text(
-            chat_id=call.message.chat.id, message_id=call.message.message_id,
-            text=recipe[i], parse_mode='HTML'
+                chat_id=call.message.chat.id, message_id=call.message.message_id,
+                text=recipe[i], parse_mode='HTML'
             )
 
 
@@ -93,12 +93,12 @@ def flowers_content(call):
         if call.data == i:
             index = flower_callb.index(i)
             img = open(images[index], 'rb')
-            bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
+            bot.send_message(
+                chat_id=call.message.chat.id,
                 text=flower[index], parse_mode='HTML'
                                 )
             bot.send_photo(chat_id=call.message.chat.id, photo=img)
     bot.send_message(
         chat_id=call.message.chat.id,
-        text='Смотрим далее. Для возврата к главному меню кликни /menu.', reply_markup=flowers_kb()
+        text='Для возврата к главному меню кликни /menu.'
                 )
