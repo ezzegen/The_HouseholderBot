@@ -4,7 +4,7 @@ import date
 import weather
 from flowers import flower, images
 from recipes import recipe
-from keyboards import line_kb, flowers_kb, recipes_kb, second_kb
+from keyboards import main_kb, line_kb, flowers_kb, recipes_kb, second_kb
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'menu')
@@ -24,14 +24,14 @@ def helping(call):
 def today(call):
     bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=f'Сегодня {date.today}')
+                text=f'Сегодня {date.today}', reply_markup=main_kb())
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'weather')
 def weather_td(call):
     bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=weather.weather_smr)
+                text=weather.weather_smr, reply_markup=main_kb())
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'recipes')
@@ -67,7 +67,7 @@ def recipes(call):
         if call.data == i:
             bot.edit_message_text(
                 chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=recipe[i], parse_mode='HTML'
+                text=recipe[i], parse_mode='HTML', reply_markup=recipes_kb()
             )
 
 
@@ -100,5 +100,6 @@ def flowers_content(call):
             bot.send_photo(chat_id=call.message.chat.id, photo=img)
     bot.send_message(
         chat_id=call.message.chat.id,
-        text='Для возврата к главному меню кликни /menu.'
+        text='Для возврата к главному меню.',
+        reply_markup=main_kb()
                 )
