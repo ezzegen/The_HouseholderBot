@@ -1,4 +1,5 @@
 from main import bot as bot
+import telebot
 import phrase
 import date
 import weather
@@ -9,37 +10,52 @@ from keyboards import main_kb, line_kb, flowers_kb, recipes_kb, second_kb
 
 @bot.callback_query_handler(func=lambda call: call.data == 'menu')
 def menu(call):
-    bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
-                          text='Жми на кнопку! :)', reply_markup=line_kb())
+    try:
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id,
+                              text='Жми на кнопку! :)', reply_markup=line_kb())
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'help')
 def helping(call):
-    bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=phrase.b_help, reply_markup=line_kb())
+    try:
+        bot.edit_message_text(
+                    chat_id=call.message.chat.id, message_id=call.message.message_id,
+                    text=phrase.b_help, reply_markup=line_kb())
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'date')
 def today(call):
-    bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=f'Сегодня {date.today}', reply_markup=main_kb())
+    try:
+        bot.edit_message_text(
+                    chat_id=call.message.chat.id, message_id=call.message.message_id,
+                    text=f'Сегодня {date.today}', reply_markup=main_kb())
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'weather')
 def weather_td(call):
-    bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=weather.weather_smr, reply_markup=main_kb())
+    try:
+        bot.edit_message_text(
+                    chat_id=call.message.chat.id, message_id=call.message.message_id,
+                    text=weather.weather_smr, reply_markup=main_kb())
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'recipes')
 def recipe_menu(call):
-    bot.edit_message_text(
-        chat_id=call.message.chat.id, message_id=call.message.message_id,
-        text='Любимые рецепты', reply_markup=recipes_kb()
-                        )
+    try:
+        bot.edit_message_text(
+            chat_id=call.message.chat.id, message_id=call.message.message_id,
+            text='Любимые рецепты', reply_markup=recipes_kb()
+                            )
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 recipe_callb = ['first', 'dessert', 'drink', 'snacks']
@@ -47,36 +63,48 @@ recipe_callb = ['first', 'dessert', 'drink', 'snacks']
 
 @bot.callback_query_handler(func=lambda call: call.data in recipe_callb)
 def recipes(call):
-    bot.edit_message_text(
-        chat_id=call.message.chat.id, message_id=call.message.message_id,
-        text=recipe, parse_mode='HTML'
-    )
+    try:
+        bot.edit_message_text(
+            chat_id=call.message.chat.id, message_id=call.message.message_id,
+            text=recipe, parse_mode='HTML'
+        )
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'second')
 def recipes(call):
-    bot.edit_message_text(
-        chat_id=call.message.chat.id, message_id=call.message.message_id,
-        text='Чего хочется?', reply_markup=second_kb()
-    )
+    try:
+        bot.edit_message_text(
+            chat_id=call.message.chat.id, message_id=call.message.message_id,
+            text='Чего хочется?', reply_markup=second_kb()
+        )
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data in recipe)
 def recipes(call):
-    for i in recipe:
-        if call.data == i:
-            bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text=recipe[i], parse_mode='HTML', reply_markup=recipes_kb()
-            )
+    try:
+        for i in recipe:
+            if call.data == i:
+                bot.edit_message_text(
+                    chat_id=call.message.chat.id, message_id=call.message.message_id,
+                    text=recipe[i], parse_mode='HTML', reply_markup=recipes_kb()
+                )
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 @bot.callback_query_handler(func=lambda call: call.data == 'flowers')
 def flowers_menu(call):
-    bot.edit_message_text(
-                chat_id=call.message.chat.id, message_id=call.message.message_id,
-                text='Краткая информация по растениям', reply_markup=flowers_kb()
-            )
+    try:
+        bot.edit_message_text(
+                    chat_id=call.message.chat.id, message_id=call.message.message_id,
+                    text='Краткая информация по растениям', reply_markup=flowers_kb()
+                )
+    except telebot.apihelper.ApiTelegramException:
+        pass
 
 
 flower_callb = [
