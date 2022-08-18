@@ -7,6 +7,7 @@ def txt_recipes(txt):
         meal['fish'] = recipes_lst[1]
         meal['meat'] = recipes_lst[2]
         meal['vegetables'] = recipes_lst[3]
+        meal['chicken'] = recipes_lst[4]
     return meal
 
 
