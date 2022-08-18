@@ -1,10 +1,8 @@
 from main import bot as bot
 import telebot
-import phrase
-import date
-import weather
-from flowers import flower, images
-from recipes import recipe
+from content import phrase, date, weather
+from content.flowers import flower, images
+from content.recipes import recipe
 from keyboards import main_kb, line_kb, flowers_kb, recipes_kb, second_kb
 
 

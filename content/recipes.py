@@ -15,8 +15,8 @@ def txt_recipes(txt):
     return meal
 
 
-recipe = txt_recipes('recipes.txt')
+recipe = txt_recipes('content//recipes.txt')
 
 
 if __name__ == '__main__':
-    print(txt_recipes('recipes.txt'))
+    print(txt_recipes('content//recipes.txt'))

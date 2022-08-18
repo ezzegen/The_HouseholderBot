@@ -10,6 +10,7 @@ logging.basicConfig(
     level=logging.INFO
 )
 logger = logging.getLogger(__name__)
+
 import handlers
 import callbacks
 from notifications import notifications, users_id

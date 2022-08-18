@@ -2,7 +2,7 @@ from main import bot as bot
 import sqlite3
 import random
 from keyboards import main_kb
-import phrase
+from content import phrase
 
 
 @bot.message_handler(commands=['start'])

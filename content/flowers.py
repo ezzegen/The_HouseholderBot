@@ -19,13 +19,13 @@ def img_flowers(folder):
     :param folder: the path to the folder(str)
     :return: list
     """
-    img_lst = list(os.path.join(folder, item) for item in (os.listdir('images')))
+    img_lst = list(os.path.join(folder, item) for item in (os.listdir('content//images')))
     return img_lst
 
 
-flower = txt_flowers('flowers.txt')
-images = img_flowers('images')
+flower = txt_flowers('content//flowers.txt')
+images = img_flowers('content//images')
 
 if __name__ == '__main__':
-    print(txt_flowers('flowers.txt'))
-    print(img_flowers('images'))
+    print(txt_flowers('content//flowers.txt'))
+    print(img_flowers('content//images'))
