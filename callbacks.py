@@ -1,4 +1,4 @@
-from main import bot as bot
+from bot import bot as bot
 import telebot
 from content import phrase, date, weather
 from content.flowers import flower, images

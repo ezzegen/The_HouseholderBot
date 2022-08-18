@@ -1,4 +1,4 @@
-from main import bot as bot
+from bot import bot as bot
 import sqlite3
 import random
 from keyboards import main_kb
