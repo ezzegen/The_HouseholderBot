@@ -58,20 +58,6 @@ def recipe_menu(call):
         pass
 
 
-recipe_callb = ['first', 'dessert', 'drink', 'snacks']
-
-
-@bot.callback_query_handler(func=lambda call: call.data in recipe_callb)
-def recipes(call):
-    try:
-        bot.edit_message_text(
-            chat_id=call.message.chat.id, message_id=call.message.message_id,
-            text=recipe, parse_mode='HTML'
-        )
-    except telebot.apihelper.ApiTelegramException:
-        pass
-
-
 @bot.callback_query_handler(func=lambda call: call.data == 'second')
 def recipes(call):
     try:
