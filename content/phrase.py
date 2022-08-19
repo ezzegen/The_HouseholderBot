@@ -76,9 +76,8 @@ def create_dict(*args):
     return dict_phrases
 
 
-grand_dictphr = create_dict(wrd_dict, hru_dict, gr_dict, exp_dict)
+grand_dictphr = create_dict(wrd_dict, hru_dict, gr_dict)
 
 if __name__ == '__main__':
 
-    create_dict(wrd_dict, hru_dict, gr_dict, exp_dict)
-    print(len(exp_dict) + len(wrd_dict) + len(hru_dict) + len(gr_dict))
+    create_dict(wrd_dict, hru_dict, gr_dict)

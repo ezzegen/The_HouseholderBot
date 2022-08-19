@@ -47,7 +47,7 @@ def menu(message):
     elif r_mess in phrase.grand_dictphr:  # for talking with bot
         b_answer = phrase.grand_dictphr[r_mess]
         bot.send_message(message.chat.id, b_answer)
-    elif phrase.exp_str.find(r_mess[:3]) != -1:  # checking single-root swear words
+    elif r_mess in phrase.exp_dict or phrase.exp_str.find(r_mess[:3]) != -1:  # checking single-root swear words
         b_answer = random.choice(phrase.exp_answ)
         bot.send_message(message.chat.id, b_answer)
     else:
