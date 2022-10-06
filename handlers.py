@@ -16,7 +16,7 @@ def greeting(message):
     connect.commit()
 
     people_id = message.chat.id
-    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id};")
+    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id}")
     data = cursor.fetchone()
     if data is None:
         user_id = [message.chat.id]

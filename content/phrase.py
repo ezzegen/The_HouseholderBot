@@ -57,7 +57,7 @@ exp_answ = [
     'Да понял я, понял! У тебя богатый словарный запас!', 'Сделаю вид, что я этого не слышал.', '*Кузя закрыл глаза',
     'Ну почему ты ругаешься??', 'Выдохни и просто напиши /menu', 'Ляляля! А я ничего не слышуууу!', '\U0001F922'
     ]*4
-cens_lst = json.load(open('censor.json'))
+cens_lst = json.load(open('content\\censor.json'))
 exp_str = ','.join(cens_lst)
 exp_dict = {k: v for k, v in zip(cens_lst, random.sample(exp_answ, 42))}
 
