@@ -14,6 +14,6 @@ telegram bot - home secretary (pyTelegramBotAPI)
   <li>меню рецептов с контентом.</li>
 <img src="README/images/photo_2022-10-06_21-34-03.jpg" width="300">
   </ul>
-  <p> Для запуска бота необходимо получить свой token и зарегистрировать имя бота через @BotFather в Telegram.</p>
-  <p> Далее в модуле bot.py прописать:<br> <b>bot = telebot.TeleBot(ваш token)</b></p>
-  <p> Запус бота осуществляется через модуль handlers.py</p>
+  <p> Для запуска бота необходимо получить свой token и зарегистрировать имя бота через @BotFather в Telegram(https://t.me/BotFather).</p>
+  <p> Далее в модуле bot.py прописать полученный токен:<br> <b>bot = telebot.TeleBot(ваш token)</b></p>
+  <p> Запуск бота осуществляется через модуль handlers.py</p>
