@@ -1,10 +1,9 @@
 import telebot
-from config import token
 import threading
 import time
 import logging
 
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot('Your token from https://t.me/BotFather')
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO
