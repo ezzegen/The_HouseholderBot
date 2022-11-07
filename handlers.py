@@ -10,17 +10,18 @@ def greeting(message):
     """connect DB and create the table"""
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS login_id( 
-                             id INT
-                            )''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                                   id INTEGER PRIMARY KEY,
+                             login_id INT
+                            );''')
     connect.commit()
 
     people_id = message.chat.id
-    cursor.execute(f"SELECT id FROM login_id WHERE id = {people_id}")
+    cursor.execute(f"SELECT login_id FROM users WHERE login_id = {people_id};")
     data = cursor.fetchone()
     if data is None:
         user_id = [message.chat.id]
-        cursor.execute("INSERT INTO login_id VALUES(?);", user_id)
+        cursor.execute("INSERT INTO users (login_id) VALUES(?);", user_id)
         connect.commit()
     # answers after greeting phrase
     bot.send_message(message.chat.id, phrase.gr_dict['/start'], reply_markup=main_kb())
@@ -32,7 +33,7 @@ def delete(message):
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
     people_id = message.chat.id
-    cursor.execute(f"DELETE FROM login_id WHERE id = {people_id}")
+    cursor.execute(f"DELETE FROM users WHERE login_id = {people_id};")
     connect.commit()
     bot.send_message(message.chat.id, 'Данные успешно удалены.')
 

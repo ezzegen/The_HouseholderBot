@@ -9,7 +9,7 @@ def users_lst():
     """extracting id from table"""
     connect = sqlite3.connect('users.db')
     cursor = connect.cursor()
-    cursor.execute('SELECT * FROM login_id;')
+    cursor.execute('SELECT login_id FROM users;')
     new_data = cursor.fetchall()
     connect.commit()
     user_id = []
@@ -61,4 +61,4 @@ def notifications(lst):
 
 
 if __name__ == '__main__':
-    print(users_lst())
+    print(users_id)
